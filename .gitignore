@@ -1,2 +1,7 @@
 node_modules
 json
+.DS_Store
+.AppleDouble
+.LSOverride
+
+._*

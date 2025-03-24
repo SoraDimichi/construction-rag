@@ -77,39 +77,40 @@ mkdir(jsonFolder, { recursive: true })
               }),
           ),
         ),
-      ),
+      )
+      .then(() => readdir(jsonFolder))
+      .then((foundFiles) =>
+        foundFiles.filter(
+          (singleFile) =>
+            extname(singleFile).toLowerCase() === ".json" &&
+            !singleFile.startsWith("._"),
+        ),
+      )
+      .then((jsonFiles) =>
+        jsonFiles.reduce((collected, singleJsonFile) => {
+          const parsed = JSON.parse(
+            readFileSync(join(jsonFolder, singleJsonFile), "utf8"),
+          );
+
+          if (!Object.keys(parsed).length) return collected;
+
+          const updated = Object.entries(parsed).reduce(
+            (result, [theKey, theValue]) => {
+              return {
+                ...result,
+                [c().transform(basename(singleJsonFile, ".json")).toLowerCase() +
+                "-" +
+                theKey]: theValue,
+              };
+            },
+            {},
+          );
+
+          return { ...collected, ...updated };
+        }, {}),
+      )
+      .then((finalResult) =>
+        writeFile(join("./", "result.json"), JSON.stringify(finalResult)),
+      )
   )
   .catch(console.error);
-
-readdir(jsonFolder)
-  .then((foundFiles) =>
-    foundFiles.filter(
-      (singleFile) => extname(singleFile).toLowerCase() === ".json",
-    ),
-  )
-  .then((jsonFiles) =>
-    jsonFiles.reduce((collected, singleJsonFile) => {
-      const parsed = JSON.parse(
-        readFileSync(join(jsonFolder, singleJsonFile), "utf8"),
-      );
-
-      if (!Object.keys(parsed).length) return collected;
-
-      const updated = Object.entries(parsed).reduce(
-        (result, [theKey, theValue]) => {
-          return {
-            ...result,
-            [c().transform(basename(singleJsonFile, ".json")).toLowerCase() +
-            "-" +
-            theKey]: theValue,
-          };
-        },
-        {},
-      );
-
-      return { ...collected, ...updated };
-    }, {}),
-  )
-  .then((finalResult) =>
-    writeFile(join("./", "result.json"), JSON.stringify(finalResult)),
-  );
