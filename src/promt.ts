@@ -1,0 +1,18 @@
+import { ChatPromptTemplate } from "@langchain/core/prompts";
+import { llm } from "./llm.ts";
+import { readFileSync } from "fs";
+
+const input = readFileSync("./src/input.md", "utf-8");
+const store = readFileSync("./result1.txt", "utf-8");
+
+const prompt = ChatPromptTemplate.fromTemplate(
+  "Break down this prompt into small construction steps:\n\n{input}\n\nSteps:",
+);
+
+const chain = prompt.pipe(llm);
+
+chain
+  .invoke({ input })
+  // .then((result) => retriever.invoke(result))
+  .then((result) => console.log(result))
+  .catch((error) => console.error(error));

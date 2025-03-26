@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "tsx index.ts",
-       "watson": "node --env-file=.env --experimental-strip-types ./watson.ts"
+    "watson": "node --env-file=.env --experimental-strip-types ./watson.ts"
   },
   "author": "",
   "license": "ISC",
