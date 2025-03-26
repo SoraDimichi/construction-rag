@@ -5,14 +5,18 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsx index.ts"
+    "start": "tsx index.ts",
+       "watson": "node --env-file=.env --experimental-strip-types ./watson.ts"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@langchain/community": "^0.3.37",
+    "@langchain/core": "^0.3.43",
     "cyrillic-to-translit-js": "^3.2.1",
-    "fast-xml-parser": "^5.0.9"
+    "fast-xml-parser": "^5.0.9",
+    "langchain": "^0.3.19"
   },
   "devDependencies": {
     "@types/node": "^22.13.11",
