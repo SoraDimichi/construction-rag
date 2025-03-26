@@ -1,2 +1,8 @@
 node_modules
 json
+.env
+.DS_Store
+.AppleDouble
+.LSOverride
+
+._*

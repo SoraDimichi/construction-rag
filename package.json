@@ -1,19 +1,25 @@
 {
   "name": "construction-rag",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "type": "module",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node --env-file=.env --experimental-strip-types ./src/index.ts"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@langchain/community": "^0.3.37",
+    "@langchain/core": "^0.3.43",
+    "cyrillic-to-translit-js": "^3.2.1",
     "fast-xml-parser": "^5.0.9",
-    "cyrillic-to-translit-js": "^3.2.1"
+    "langchain": "^0.3.19"
   },
   "devDependencies": {
-    "@types/node": "^22.13.11"
+    "@types/node": "^22.13.11",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2"
   }
 }
