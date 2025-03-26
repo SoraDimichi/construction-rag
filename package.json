@@ -4,9 +4,7 @@
   "type": "module",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsx index.ts",
-    "watson": "node --env-file=.env --experimental-strip-types ./watson.ts"
+    "start": "node --env-file=.env --experimental-strip-types ./src/index.ts"
   },
   "author": "",
   "license": "ISC",
