@@ -19,7 +19,6 @@ const DATA_PATH = getPath("result.json");
 const store = new MemoryVectorStore(embeddings);
 
 if (!existsSync(STORAGE_PATH)) {
-  console.log("i work");
   const content = readFileSync(DATA_PATH, "utf-8");
   const data: Record<string, string> = JSON.parse(content);
   const docs: any = Object.entries(data).map(
