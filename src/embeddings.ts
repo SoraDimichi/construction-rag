@@ -11,12 +11,16 @@ const embeddings = new WatsonxEmbeddings({
 });
 
 const STORAGE_NAME = "memory-vectors.json";
-const STORAGE_PATH = fileURLToPath(new URL(STORAGE_NAME, import.meta.url));
+const getPath = (path: string) => fileURLToPath(new URL(path, import.meta.url));
+
+const STORAGE_PATH = getPath(STORAGE_NAME);
+const DATA_PATH = getPath("result.json");
 
 const store = new MemoryVectorStore(embeddings);
 
-if (!existsSync(new URL(STORAGE_NAME, import.meta.url))) {
-  const content = readFileSync(STORAGE_PATH, "utf-8");
+if (!existsSync(STORAGE_PATH)) {
+  console.log("i work");
+  const content = readFileSync(DATA_PATH, "utf-8");
   const data: Record<string, string> = JSON.parse(content);
   const docs: any = Object.entries(data).map(
     ([id, pageContent]) =>
@@ -36,7 +40,7 @@ if (!existsSync(new URL(STORAGE_NAME, import.meta.url))) {
         const nextStep = docs.slice(currentIndex, currentIndex + 1);
         if (!nextStep.length) break;
         const candidate = currentChunk.concat(nextStep);
-        if (JSON.stringify(candidate).length <= 950) {
+        if (JSON.stringify(candidate).length <= 1000) {
           currentChunk = candidate;
           currentIndex += nextStep.length;
         } else {
